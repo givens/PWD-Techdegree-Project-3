@@ -23,11 +23,18 @@ class Edit:
         print(self.tasks[self.index])
 
     def edit_task(self):
+        old_task = self.tasks[self.index]
         self.tasks[self.index] = Entry().enter_all()
+        new_task = self.tasks[self.index]
+        self.index = 0
+        return old_task, new_task
+
 
     def delete_task(self):
+        old_task = self.tasks[self.index]
         del self.tasks[self.index]
         self.index = 0
+        return old_task
 
     def next(self):
         self.index += 1
