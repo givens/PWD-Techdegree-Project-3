@@ -1,4 +1,5 @@
 from utils import print_error, clear_screen
+import time
 
 main = [
 'What would you like to do?',
@@ -41,31 +42,10 @@ def make(menu):
             raise ValueError("Menu choice not listed.")
     except ValueError as err:
         print_error(err)
+        time.sleep(0.5)
         return make(menu)
     else:
         return choice
-
-#def menu_action(menu, choice):
-#    return menu[choice]["function"]
-
-def add_entry():
-    en = Entry()
-    return en.enter_all()
-
-def main_menu():
-    choice = make_menu(main)
-    menu_action(main, choice)
-
-def search_menu():
-    choice = make_menu(search)
-    menu_action(search, choice)
-
-def edit_menu():
-    choice = make_menu(edit)
-    menu_action(edit, choice)
-
-
-
 
 
 

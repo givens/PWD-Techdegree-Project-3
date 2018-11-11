@@ -1,5 +1,5 @@
 from tasks import Task
-from datetime import datetime
+import datetime
 from utils import fmt, clear_screen, print_error
 import pdb
 
@@ -9,11 +9,17 @@ class Entry:
     def enter_date(self):
         "Obtain user-suppled task date"
         print("Enter task date")
-        date_str = input("Please use YYYYMMDD:  ")
+        date_str = input("Please use YYYYMMDD or just enter for current date:  ")
         try:
             if not date_str:
-                raise ValueError("Date cannot be empty.")
-            date = datetime.strptime(date_str, fmt)
+                date = datetime.datetime.today()
+                delta = datetime.timedelta(hours=date.hour,
+                    minutes=date.minute,
+                    seconds=date.second,
+                    microseconds=date.microsecond)
+                date = date - delta
+            else:
+                date = datetime.datetime.strptime(date_str, fmt)
         except ValueError as err:
             print_error(err)
             return enter_date(self)
@@ -63,3 +69,17 @@ class Entry:
         minutes = self.enter_minutes()
         notes = self.enter_notes()
         return Task(title, minutes, date, notes)
+
+
+if __name__ == '__main__':
+
+    now = datetime.datetime.today()
+    delta = datetime.timedelta(hours=date.hour,
+    minutes=date.minute,
+    seconds=date.second,
+    microseconds=date.microsecond)
+    now = now - delta
+    print(now)
+
+    en = Entry().enter_date()
+

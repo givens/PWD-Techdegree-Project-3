@@ -131,6 +131,8 @@ class TaskList:
         #pdb.set_trace()
         with open(file_name, 'r') as tasks_file:
             tks = json.load(tasks_file)
+        if not tks:
+            return cls(list())
         tasks = []
         for task in tks:
             tasks.append(Task.create_task_from_dict(
@@ -140,7 +142,7 @@ class TaskList:
                 task['notes']))
         return cls(tasks)
 
-    def edit(self, new_task, old_task):
+    def edit(self, old_task, new_task):
         self.tasks.remove(old_task)
         self.tasks.append(new_task)
 
