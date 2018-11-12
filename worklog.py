@@ -138,25 +138,3 @@ class Worklog:
             except IndexError as err:
                 print(err)
                 self.search_menu()
-
-
-if __name__ == '__main__':
-    """
-    Testing and validation
-    """
-    d1 = datetime.strptime("20181105", utils.fmt)
-    d2 = datetime.strptime("20181106", utils.fmt)
-    d3 = datetime.strptime("20181107", utils.fmt)
-    ts = [('Organize filecase', 15, d1, 'pick up under bed'),
-          ('clean office', 20, d1, 'remove DMD'),
-          ('treehouse practice', 60, d2, 'python'),
-          ('treehouse project 1', 180, d1, 'guessing game'),
-          ('treehouse project 2', 480, d1, 'soccer league'),
-          ('treehouse project 3', 1200, d2, 'work log'),
-          ('check cryptocurrency', 15, d2, 'is bitcoin up?'),
-          ('segmentation', 1000, d3, 'segment rods and screws from CT image')]
-    tl = tasks.TaskList.create_tasklist(ts)
-    utils.write_tasks(tl)
-    tl = tasks.TaskList.import_tasklist()
-    for task in tl.tasks:
-        print(task)
