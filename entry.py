@@ -1,32 +1,41 @@
-from tasks import Task
+"""
+entry.py
+--------
+Add task entry
+"""
+
+
 import datetime
-from utils import fmt, clear_screen, print_error
-import pdb
+
+import utils
+
 
 class Entry:
+    "This class allows the user to enter all the information associated with a Task"
 
-    @clear_screen
+    @utils.clear_screen
     def enter_date(self):
         "Obtain user-suppled task date"
         print("Enter task date")
-        date_str = input("Please use YYYYMMDD or just enter for current date:  ")
+        date_str = input(
+            "Please use YYYYMMDD or just enter for current date:  ")
         try:
             if not date_str:
                 date = datetime.datetime.today()
                 delta = datetime.timedelta(hours=date.hour,
-                    minutes=date.minute,
-                    seconds=date.second,
-                    microseconds=date.microsecond)
+                                           minutes=date.minute,
+                                           seconds=date.second,
+                                           microseconds=date.microsecond)
                 date = date - delta
             else:
-                date = datetime.datetime.strptime(date_str, fmt)
+                date = datetime.datetime.strptime(date_str, utils.fmt)
         except ValueError as err:
-            print_error(err)
+            utils.print_error(err)
             return enter_date(self)
         else:
             return date
 
-    @clear_screen
+    @utils.clear_screen
     def enter_minutes(self):
         "Obtain user-supplied task time in minutes"
         print("Enter task time")
@@ -36,12 +45,12 @@ class Entry:
                 raise ValueError("Minutes cannot be empty.")
             minutes = int(minutes_str)
         except ValueError as err:
-            print_error(err)
+            utils.print_error(err)
             return enter_minutes(self)
         else:
             return round(minutes)
 
-    @clear_screen
+    @utils.clear_screen
     def enter_title(self):
         "Obtain name of task"
         print("Enter task title")
@@ -50,12 +59,12 @@ class Entry:
             if not title:
                 raise ValueError("Title cannot be empty.")
         except ValueError as err:
-            print_error(err)
+            utils.print_error(err)
             return enter_title(self)
         else:
             return title
 
-    @clear_screen
+    @utils.clear_screen
     def enter_notes(self):
         "Obtain task notes"
         print("Enter task notes")
@@ -69,17 +78,3 @@ class Entry:
         minutes = self.enter_minutes()
         notes = self.enter_notes()
         return Task(title, minutes, date, notes)
-
-
-if __name__ == '__main__':
-
-    now = datetime.datetime.today()
-    delta = datetime.timedelta(hours=date.hour,
-    minutes=date.minute,
-    seconds=date.second,
-    microseconds=date.microsecond)
-    now = now - delta
-    print(now)
-
-    en = Entry().enter_date()
-
