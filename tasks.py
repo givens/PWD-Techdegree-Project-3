@@ -168,8 +168,3 @@ class TaskList:
         "Find all indices where the task exactly matches"
         return [index for index, task in enumerate(
             self.tasks) if task.match_exact(tsk)]
-
-
-# Testing
-if __name__ == '__main__':
-    "Testing and validation"
