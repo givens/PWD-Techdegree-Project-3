@@ -7,6 +7,7 @@ Add task entry
 
 import datetime
 
+import tasks
 import utils
 
 
@@ -31,7 +32,8 @@ class Entry:
                 date = datetime.datetime.strptime(date_str, utils.fmt)
         except ValueError as err:
             utils.print_error(err)
-            return enter_date(self)
+            utils.wait()
+            return self.enter_date()
         else:
             return date
 
@@ -46,7 +48,8 @@ class Entry:
             minutes = int(minutes_str)
         except ValueError as err:
             utils.print_error(err)
-            return enter_minutes(self)
+            utils.wait()
+            return self.enter_minutes()
         else:
             return round(minutes)
 
@@ -60,7 +63,8 @@ class Entry:
                 raise ValueError("Title cannot be empty.")
         except ValueError as err:
             utils.print_error(err)
-            return enter_title(self)
+            utils.wait()
+            return self.enter_title()
         else:
             return title
 
@@ -77,4 +81,4 @@ class Entry:
         date = self.enter_date()
         minutes = self.enter_minutes()
         notes = self.enter_notes()
-        return Task(title, minutes, date, notes)
+        return tasks.Task(title, minutes, date, notes)
