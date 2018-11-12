@@ -55,12 +55,12 @@ class Worklog:
             if choice == 1:  # add new entry
                 task = entry.Entry().enter_all()
                 self.tl.add(task)
-                self.main_menu()
+                return self.main_menu()
             elif choice == 2:  # search existing entries
                 if not self.tl:
                     print("Cannot search, no entries exist.")
                     utils.wait()
-                    self.main_menu()
+                    return self.main_menu()
                 else:
                     self.search_menu()
             elif choice == 3:  # quit program
@@ -91,13 +91,14 @@ class Worklog:
             elif choice == 5:  # pattern search
                 tasks = search.Search().search_by_pattern(self.tl)
             elif choice == 6:
-                self.main_menu()
+                return self.main_menu()
 
             if tasks:
                 self.edit_menu(tasks)
             else:
                 print("No tasks found.")
-                self.search_menu()
+                utils.wait()
+                return self.search_menu()
 
     @utils.pause_screen
     def edit_menu(self, tasks):
@@ -118,7 +119,8 @@ class Worklog:
                 ed.print_task()
             except IndexError as err:
                 print(err)
-                self.search_menu()
+                utils.wait()
+                return self.search_menu()
             choice = menu.make(menu.edit)
             try:
                 if choice == 1:  # next
@@ -137,4 +139,5 @@ class Worklog:
                     self.main_menu()
             except IndexError as err:
                 print(err)
-                self.search_menu()
+                utils.wait()
+                return self.search_menu()
