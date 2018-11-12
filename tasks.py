@@ -126,6 +126,10 @@ class TaskList:
                     task['notes']))
         return cls(tasks)
 
+    def add(self, new_task):
+        "Add an item in the task list"
+        self.tasks.append(new_task)
+
     def edit(self, old_task, new_task):
         "Edit an item in the task list"
         self.tasks.remove(old_task)
