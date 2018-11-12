@@ -1,7 +1,7 @@
 """
 run.py
 ----------
-Module runs worklog  for the PWD-Techdegree-Project-3 cli tool.
+Module runs worklog for the PWD-Techdegree-Project-3 cli tool.
 """
 
 from worklog import Worklog
