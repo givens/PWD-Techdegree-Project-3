@@ -13,6 +13,7 @@ import utils
 
 
 class Item:
+    """Basic item class"""
 
     def __init__(self, *args, **kwargs):
         for key, value in kwargs.items():
@@ -20,10 +21,9 @@ class Item:
 
 
 class Task(Item):
-    """
-    The Task class contains title, minutes, date, and notes -- all part of a task on a timesheet.
-    The methods provide ways to search the Task.
-    """
+    """The Task class contains title, minutes, date, and notes --
+    all part of a task on a timesheet.
+    The methods provide ways to search the Task."""
 
     def __init__(self, title, minutes, date, notes=""):
         super().__init__(title=title,
@@ -32,13 +32,16 @@ class Task(Item):
                          notes=notes)
 
     def __str__(self):
-        "Print Task"
-        return """
-TITLE: {},
+        """Print Task"""
+        return """TITLE: {},
 MINUTES: {},
 DATE: {},
 NOTES: {}
-""".format(self.title, self.minutes, self.date.strftime(utils.fmt), self.notes)
+""".format(self.title,
+           self.minutes,
+           self.date.strftime(
+               utils.fmt),
+           self.notes)
 
     @property
     def to_dict(self):
@@ -172,4 +175,4 @@ class TaskList:
     def find_index_exact(self, tsk):
         """Find all indices where the task exactly matches"""
         return [index for index, task in enumerate(
-            self.tasks) if self.task[index]==tsk]
+            self.tasks) if self.task[index] == tsk]
