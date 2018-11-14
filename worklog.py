@@ -6,12 +6,10 @@ Worklog provides menus and program flow
 for the PWD-Techdegree-Project-3 cli tool.
 """
 
-from datetime import datetime
-import menu
 import sys
 import os
-import pdb
 
+import menu
 import tasks
 import entry
 import search
@@ -28,16 +26,16 @@ class Worklog:
         If no file exists, create an empty TaskList
         """
         if os.path.exists(utils.file_name):
-            self.tl = tasks.TaskList.import_tasklist()
+            self.task_list = tasks.TaskList.import_tasklist()
         else:
-            self.tl = tasks.TaskList()
+            self.task_list = tasks.TaskList()
 
     def quit_program(self):
         """
         Quit program by writing to json file
         Print goodbye message
         """
-        utils.write_tasks(self.tl)
+        utils.write_tasks(self.task_list)
         print("Goodbye!")
         sys.exit(0)
 
@@ -54,10 +52,10 @@ class Worklog:
             choice = menu.make(menu.main)
             if choice == 1:  # add new entry
                 task = entry.Entry().enter_all()
-                self.tl.add(task)
+                self.task_list.add(task)
                 return self.main_menu()
             elif choice == 2:  # search existing entries
-                if not self.tl:
+                if not self.task_list:
                     print("Cannot search, no entries exist.")
                     utils.wait()
                     return self.main_menu()
@@ -81,27 +79,29 @@ class Worklog:
         while True:
             choice = menu.make(menu.search)
             if choice == 1:  # search by exact date
-                tasks = search.Search().search_by_date(self.tl)
+                found_tasks = search.Search().search_by_date(self.task_list)
             elif choice == 2:  # search by range of dates
-                tasks = search.Search().search_by_date_range(self.tl)
+                found_tasks = search.Search().search_by_date_range(
+                    self.task_list)
             elif choice == 3:  # search by time
-                tasks = search.Search().search_by_time(self.tl)
+                found_tasks = search.Search().search_by_time(self.task_list)
             elif choice == 4:  # exact string search
-                tasks = search.Search().search_by_contains(self.tl)
+                found_tasks = search.Search().search_by_contains(
+                    self.task_list)
             elif choice == 5:  # pattern search
-                tasks = search.Search().search_by_pattern(self.tl)
+                found_tasks = search.Search().search_by_pattern(self.task_list)
             elif choice == 6:
                 return self.main_menu()
 
-            if tasks:
-                self.edit_menu(tasks)
+            if found_tasks:
+                self.edit_menu(found_tasks)
             else:
                 print("No tasks found.")
                 utils.wait()
                 return self.search_menu()
 
     @utils.pause_screen
-    def edit_menu(self, tasks):
+    def edit_menu(self, found_tasks):
         """
         edit.Edit menu provides 6 options
         1 - Next item
@@ -111,12 +111,11 @@ class Worklog:
         5 - Return to search menu
         6 - Return to main menu
         """
-        # pdb.set_trace()
-        ed = edit.Edit(tasks)
+        ed_tasks = edit.Edit(found_tasks)
         while True:
             utils.clear()
             try:
-                ed.print_task()
+                ed_tasks.print_task()
             except IndexError as err:
                 print(err)
                 utils.wait()
@@ -124,15 +123,15 @@ class Worklog:
             choice = menu.make(menu.edit)
             try:
                 if choice == 1:  # next
-                    ed.next()
+                    ed_tasks.next()
                 elif choice == 2:  # previous
-                    ed.previous()
+                    ed_tasks.previous()
                 elif choice == 3:  # edit
-                    old_task, new_task = ed.edit_task()
-                    self.tl.edit(old_task, new_task)
+                    old_task, new_task = ed_tasks.edit_task()
+                    self.task_list.edit(old_task, new_task)
                 elif choice == 4:  # delete
-                    old_task = ed.delete_task()
-                    self.tl.delete(old_task)
+                    old_task = ed_tasks.delete_task()
+                    self.task_list.delete(old_task)
                 elif choice == 5:  # search menu
                     self.search_menu()
                 elif choice == 6:  # main menu

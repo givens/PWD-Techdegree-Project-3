@@ -14,12 +14,12 @@ fmt = '%Y%m%d'
 
 
 def clear():
-    "Clear screen"
+    """Clear screen"""
     os.system("cls" if os.name == "nt" else "clear")
 
 
 def clear_screen(func):
-    "Clear screen decorator"
+    """Clear screen decorator"""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         clear()
@@ -28,14 +28,15 @@ def clear_screen(func):
 
 
 def wait():
-    "Wait for a fraction of a second"
+    """Wait for a fraction of a second"""
     time.sleep(0.5)
 
 
 def pause_screen(func):
-    "Pause screen decorator"
+    """Pause screen decorator"""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
+        """Return wrapper file"""
         output = func(*args, **kwargs)
         wait()
         return output
@@ -43,12 +44,12 @@ def pause_screen(func):
 
 
 def print_error(err):
-    "Print error when invalid"
+    """Print error when invalid"""
     print("Invalid:  {}".format(err))
 
 
 def write_tasks(tl):
-    "Write task list to a json file"
+    """Write task list to a json file"""
     tasks = []
     for task in tl.tasks:
         tasks.append(task.to_dict)
