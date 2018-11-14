@@ -37,7 +37,7 @@ edit = [
 
 
 def make(menu):
-    "Makes standard menu"
+    """Makes standard menu"""
     for index, menu_item in enumerate(menu):
         if index == 0:
             print(menu_item)

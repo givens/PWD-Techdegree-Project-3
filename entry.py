@@ -16,7 +16,7 @@ class Entry:
 
     @utils.clear_screen
     def enter_date(self):
-        "Obtain user-suppled task date"
+        """Obtain user-suppled task date"""
         print("Enter task date")
         date_str = input(
             "Please use YYYYMMDD or just enter for current date:  ")
@@ -39,7 +39,7 @@ class Entry:
 
     @utils.clear_screen
     def enter_minutes(self):
-        "Obtain user-supplied task time in minutes"
+        """Obtain user-supplied task time in minutes"""
         print("Enter task time")
         minutes_str = input("Please enter minutes:  ")
         try:
@@ -55,7 +55,7 @@ class Entry:
 
     @utils.clear_screen
     def enter_title(self):
-        "Obtain name of task"
+        """Obtain name of task"""
         print("Enter task title")
         title = input("What is the name?  ")
         try:
@@ -70,13 +70,13 @@ class Entry:
 
     @utils.clear_screen
     def enter_notes(self):
-        "Obtain task notes"
+        """Obtain task notes"""
         print("Enter task notes")
         notes = input("Do you have additional comments (can be empty)?  ")
         return notes
 
     def enter_all(self):
-        "Obtain user-supplied info for task"
+        """Obtain user-supplied info for task"""
         title = self.enter_title()
         date = self.enter_date()
         minutes = self.enter_minutes()
