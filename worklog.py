@@ -132,6 +132,8 @@ class Worklog:
                 elif choice == 4:  # delete
                     old_task = ed_tasks.delete_task()
                     self.task_list.delete(old_task)
+                    print("Task deleted.")
+                    utils.wait()
                 elif choice == 5:  # search menu
                     self.search_menu()
                 elif choice == 6:  # main menu
