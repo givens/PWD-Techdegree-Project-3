@@ -12,12 +12,14 @@ import utils
 
 
 class Entry:
-    "This class allows the user to enter all the information associated with a Task"
-
+    """This class allows the user to enter all the information
+    associated with a Task"""
     @utils.clear_screen
-    def enter_date(self):
+    def enter_date(self, task=None):
         """Obtain user-suppled task date"""
         print("Enter task date")
+        if task:
+            print('Current: {}'.format(task.date.strftime(utils.fmt)))
         date_str = input(
             "Please use YYYYMMDD or just enter for current date:  ")
         try:
@@ -38,9 +40,11 @@ class Entry:
             return date
 
     @utils.clear_screen
-    def enter_minutes(self):
+    def enter_minutes(self, task=None):
         """Obtain user-supplied task time in minutes"""
         print("Enter task time")
+        if task:
+            print('Current: {}'.format(task.minutes))
         minutes_str = input("Please enter minutes:  ")
         try:
             if not minutes_str:
@@ -54,9 +58,11 @@ class Entry:
             return round(minutes)
 
     @utils.clear_screen
-    def enter_title(self):
+    def enter_title(self, task=None):
         """Obtain name of task"""
         print("Enter task title")
+        if task:
+            print('Current: {}'.format(task.title))
         title = input("What is the name?  ")
         try:
             if not title:
@@ -69,16 +75,18 @@ class Entry:
             return title
 
     @utils.clear_screen
-    def enter_notes(self):
+    def enter_notes(self, task=None):
         """Obtain task notes"""
         print("Enter task notes")
+        if task:
+            print('Current: {}'.format(task.notes))
         notes = input("Do you have additional comments (can be empty)?  ")
         return notes
 
-    def enter_all(self):
+    def enter_all(self, task=None):
         """Obtain user-supplied info for task"""
-        title = self.enter_title()
-        date = self.enter_date()
-        minutes = self.enter_minutes()
-        notes = self.enter_notes()
+        title = self.enter_title(task)
+        date = self.enter_date(task)
+        minutes = self.enter_minutes(task)
+        notes = self.enter_notes(task)
         return tasks.Task(title, minutes, date, notes)

@@ -3,6 +3,7 @@ edit.py
 -------
 Edits module for editing and deleting tasks.
 """
+import datetime
 
 import entry
 
@@ -28,7 +29,7 @@ class Edit:
     def edit_task(self):
         """Edits current task in list"""
         old_task = self.tasks[self.index]
-        self.tasks[self.index] = entry.Entry().enter_all()
+        self.tasks[self.index] = entry.Entry().enter_all(old_task)
         new_task = self.tasks[self.index]
         self.index = 0
         return old_task, new_task
